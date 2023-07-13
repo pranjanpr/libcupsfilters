@@ -91,6 +91,8 @@ pkgfiltersinclude_DATA = \
 
 lib_LTLIBRARIES = libcupsfilters.la
 
+check_SCRIPTS = cupsfilters/cupsfilterssuite.sh
+
 check_PROGRAMS = \
 	testcmyk \
 	testdither \
@@ -101,14 +103,17 @@ check_PROGRAMS = \
 	testpdf2 \
 	test-analyze \
 	test-pdf \
-	test-ps
+	test-ps \
+	cupsfilterssuite
+	
 TESTS = \
 	testdither \
 	testpdf1 \
 	testpdf2 \
 	test-analyze \
 	test-pdf \
-	test-ps
+	test-ps \
+	cupsfilters/cupsfilterssuite.sh
 
 #	testcmyk # fails as it opens some image.ppm which is nowerhe to be found.
 #	testimage # requires also some ppm file as argument
@@ -135,6 +140,7 @@ libcupsfilters_la_SOURCES = \
 	cupsfilters/cmyk.c \
 	cupsfilters/colord.c \
 	cupsfilters/colormanager.c \
+	cupsfilters/cupsfilterssuite.c \
 	cupsfilters/debug.c \
 	cupsfilters/debug-internal.h \
 	cupsfilters/dither.c \
@@ -309,11 +315,31 @@ test_pdf_LDADD = libcupsfilters.la
 test_ps_SOURCES = cupsfilters/fontembed/test-ps.c
 test_ps_LDADD = libcupsfilters.la
 
+
+cupsfilterssuite_SOURCES = \
+	cupsfilters/cupsfilterssuite.c \
+	$(pkgfiltersinclude_DATA)
+
+cupsfilterssuite_LDADD = \
+	libcupsfilters.la \
+	-lm -ldl -lcups
+
+cupsfilterssuite_LDFLAGS = \
+	-D_GNU_SOURCE \
+	-L/usr/lib
+	
 EXTRA_DIST += \
 	$(pkgfiltersinclude_DATA) \
 	cupsfilters/image.pgm \
 	cupsfilters/image.ppm \
-	cupsfilters/fontembed/README
+	cupsfilters/fontembed/README \
+	cupsfilters/calculated_tc.txt \
+	cupsfilters/test_files/bashrc.urf \
+	cupsfilters/test_files/test_file.pdf \
+	cupsfilters/test_files/test_file.pwg \
+	cupsfilters/test_files/test_file_1pg.pdf \
+	cupsfilters/test_files/test_file_2pg.pdf \
+	cupsfilters/test_files/test_file_4pg.pdf
 
 # =========
 # CUPS Data
@@ -346,3 +372,15 @@ uninstall-hook:
 	$(RM) $(DESTDIR)$(pkgcharsetdir)/pdf.utf-8
 
 SUBDIRS =
+
+#testdestdir := $(shell pwd)/test
+#testcases = 3
+
+#$(testdestdir)/cupsfilterssuite.exe: $(testdestdir)/cupsfilterssuite.c
+#	gcc $< -L -D_GNU_SOURCE -lcupsfilters -lm -ldl -o $@
+
+#.PHONY: check
+#check: 
+#	echo "Running the input output test for universal..."
+#	$(testdestdir)/cupsfilterssuite.exe $(testdestdir)/calculated_tc.txt $(testcases) &> $(testdestdir)/Test_summary.txt
+	
