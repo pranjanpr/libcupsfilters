@@ -91,7 +91,7 @@ pkgfiltersinclude_DATA = \
 
 lib_LTLIBRARIES = libcupsfilters.la
 
-check_SCRIPTS = cupsfilters/cupsfilterssuite.sh
+check_SCRIPTS = cupsfilters/testfilters.sh
 
 check_PROGRAMS = \
 	testcmyk \
@@ -104,7 +104,7 @@ check_PROGRAMS = \
 	test-analyze \
 	test-pdf \
 	test-ps \
-	cupsfilterssuite
+	testfilters
 	
 TESTS = \
 	testdither \
@@ -113,7 +113,7 @@ TESTS = \
 	test-analyze \
 	test-pdf \
 	test-ps \
-	cupsfilters/cupsfilterssuite.sh
+	cupsfilters/testfilters.sh
 
 #	testcmyk # fails as it opens some image.ppm which is nowerhe to be found.
 #	testimage # requires also some ppm file as argument
@@ -140,7 +140,7 @@ libcupsfilters_la_SOURCES = \
 	cupsfilters/cmyk.c \
 	cupsfilters/colord.c \
 	cupsfilters/colormanager.c \
-	cupsfilters/cupsfilterssuite.c \
+	cupsfilters/testfilters.c \
 	cupsfilters/debug.c \
 	cupsfilters/debug-internal.h \
 	cupsfilters/dither.c \
@@ -316,15 +316,15 @@ test_ps_SOURCES = cupsfilters/fontembed/test-ps.c
 test_ps_LDADD = libcupsfilters.la
 
 
-cupsfilterssuite_SOURCES = \
-	cupsfilters/cupsfilterssuite.c \
+testfilters_SOURCES = \
+	cupsfilters/testfilters.c \
 	$(pkgfiltersinclude_DATA)
 
-cupsfilterssuite_LDADD = \
+testfilters_LDADD = \
 	libcupsfilters.la \
 	-lm -ldl -lcups
 
-cupsfilterssuite_LDFLAGS = \
+testfilters_LDFLAGS = \
 	-D_GNU_SOURCE \
 	-L/usr/lib
 	
@@ -333,7 +333,7 @@ EXTRA_DIST += \
 	cupsfilters/image.pgm \
 	cupsfilters/image.ppm \
 	cupsfilters/fontembed/README \
-	cupsfilters/calculated_tc.txt \
+	cupsfilters/test-filter-cases.txt \
 	cupsfilters/test_files/bashrc.urf \
 	cupsfilters/test_files/test_file.pdf \
 	cupsfilters/test_files/test_file.pwg \
@@ -382,5 +382,5 @@ SUBDIRS =
 #.PHONY: check
 #check: 
 #	echo "Running the input output test for universal..."
-#	$(testdestdir)/cupsfilterssuite.exe $(testdestdir)/calculated_tc.txt $(testcases) &> $(testdestdir)/Test_summary.txt
+#	$(testdestdir)/cupsfilterssuite.exe $(testdestdir)/test-filter-cases.txt $(testcases) &> $(testdestdir)/Test_summary.txt
 	
