@@ -28,7 +28,7 @@ jobs:
         mkdir qpdf
         wget -O qpdf-11.6.3.tar.gz https://sourceforge.net/projects/qpdf/files/qpdf/11.6.3/qpdf-11.6.3.tar.gz
         tar -xzf qpdf-11.6.3.tar.gz
-        cd qpdf-11.6.3.tar.gz
+        cd qpdf-11.6.3
         mkdir build &&
         cd build &&
         cmake -DCMAKE_INSTALL_PREFIX=/usr \
