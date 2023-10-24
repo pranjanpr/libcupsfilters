@@ -37,6 +37,7 @@ jobs:
         -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/qpdf-11.6.3 \
         .. &&
         make
+        make install
         cd ..
         cd ..
     - name: configure 
