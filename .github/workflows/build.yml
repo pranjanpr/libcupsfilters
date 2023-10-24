@@ -18,7 +18,22 @@ jobs:
     - name: update build environment
       run: sudo apt-get update --fix-missing -y && sudo apt-get upgrade --fix-missing -y
     - name: install prerequisites
-      run: sudo apt-get install -y avahi-daemon libavahi-client-dev libssl-dev libpam-dev libusb-1.0-0-dev zlib1g-dev
+      run: |
+      	sudo apt-get install -y avahi-daemon libavahi-client-dev libssl-dev libpam-dev libusb-1.0-0-dev zlib1g-dev
+      	sudo apt install autotools-dev autopoint cmake libtool pkg-config libcups2-dev libexif-dev liblcms2-dev libfontconfig1-dev
+    
+    - name: Install libqpdf > 11.0.0
+      run: |
+      	cd ..
+      	mkdir qpdf
+      	wget -O qpdf-11.6.3.tar.gz https://sourceforge.net/projects/qpdf/files/qpdf/11.6.3/qpdf-11.6.3.tar.gz
+      	tar -xzf qpdf-11.6.3.tar.gz
+      	cd qpdf-11.6.3.tar.gz
+      	cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
+	cmake --build build
+	cd ..
+	cd ..
+	
     - name: configure 
       env:
         CC: /usr/bin/gcc
