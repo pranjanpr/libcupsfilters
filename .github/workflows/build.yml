@@ -33,7 +33,6 @@ jobs:
         cmake --build build
         cd ..
         cd ..
-	
     - name: configure 
       env:
         CC: /usr/bin/gcc
