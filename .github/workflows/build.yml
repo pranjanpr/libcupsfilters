@@ -21,7 +21,8 @@ jobs:
       run: |
        sudo apt-get install -y avahi-daemon libavahi-client-dev libssl-dev libpam-dev libusb-1.0-0-dev zlib1g-dev
        sudo apt install autotools-dev autopoint cmake libtool pkg-config libcups2-dev libexif-dev liblcms2-dev libfontconfig1-dev
-    
+       sudo apt install libfreetype6-dev build-essential qtbase5-dev qtchooser libcairo2-dev libboost-system-dev libboost-thread-dev libboost-program-options-dev libboost-test-dev libopenjp2-7-dev liblcms2-dev libjpeg-dev
+
     - name: Install libqpdf > 11.0.0
       run: |
         cd ..
@@ -40,11 +41,16 @@ jobs:
         make install
         cd ..
         cd ..
+
+    - name: Install poppler and mupdf
+      run: sudo apt install libpoppler-cpp-dev libpython3-dev libdbus-1-dev
+       sudp apt install mupdf-tools
+
     - name: configure 
       env:
         CC: /usr/bin/gcc
       run: ./autogen.sh && ./configure --enable-debug
     - name: make
       run: make
-    - name: test
+    - name: Run Tests
       run: make check || cat test/error_log*
