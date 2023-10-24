@@ -43,7 +43,8 @@ jobs:
         cd ..
 
     - name: Install poppler and mupdf
-      run: sudo apt install libpoppler-cpp-dev libpython3-dev libdbus-1-dev
+      run: |
+       sudo apt install libpoppler-cpp-dev libpython3-dev libdbus-1-dev
        sudo apt install mupdf-tools
 
     - name: configure 
