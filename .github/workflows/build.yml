@@ -30,9 +30,9 @@ jobs:
       	tar -xzf qpdf-11.6.3.tar.gz
       	cd qpdf-11.6.3.tar.gz
       	cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
-	cmake --build build
-	cd ..
-	cd ..
+        cmake --build build
+        cd ..
+        cd ..
 	
     - name: configure 
       env:
