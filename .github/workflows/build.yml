@@ -7,7 +7,7 @@ on:
     branches: [ ci23 ]
 
 jobs:
-  build-linux:
+  build-linux-run-tests:
 
     runs-on: ubuntu-latest
 
@@ -46,6 +46,9 @@ jobs:
       run: |
        sudo apt install libpoppler-cpp-dev libpython3-dev libdbus-1-dev
        sudo apt install mupdf-tools
+       
+    - name: Install ghostscript
+      run: sudo apt install ghostscript
 
     - name: configure 
       env:
