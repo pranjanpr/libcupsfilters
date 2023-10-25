@@ -2,9 +2,11 @@ name: Build and Test
 
 on:
   push:
-    branches: [ ci23 ]
+    branches:
+    - '**'
   pull_request:
-    branches: [ ci23 ]
+    branches:
+    - '**'
 
 jobs:
   build-linux-run-tests:
